@@ -9,7 +9,7 @@ from src.ai_gateway import get_vlm_analysis_local, get_llm_decision_local
 # AI 의사결정 주기 (초) - 로컬 처리는 매우 빠름
 DECISION_INTERVAL = 1.0 # 1초마다 한 번씩 VLM/LLM 판단
 
-# 포스터 Fig2. 용 이미지 저장 폴더 [1, 1]
+# 포스터 Fig2. 용 이미지 저장 폴더 
 OUTPUT_DIR = "experiment_results"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -20,12 +20,12 @@ def main():
         return
 
     try:
-        tello.streamon() # 
-        frame_read = tello.get_frame_read() # 
+        tello.streamon() # 수업자료 실습 5-2 
+        frame_read = tello.get_frame_read() # 수업자료 실습 5-2 
         
         print("\n[메인] 이륙 준비... (5초 후 이륙)")
         time.sleep(5)
-        tello.takeoff() # [1, 1]
+        tello.takeoff() # 수업자료 실습 5-2 
         
         last_decision_time = time.time()
         current_command = "STOP" # 초기 상태
@@ -65,19 +65,19 @@ def main():
                 # 명령이 변경되는 '결정적 순간'에만 이미지 저장
                 if current_command!= last_command:
                     filename = f"{OUTPUT_DIR}/{time.strftime('%Y%m%d_%H%M%S')}_{current_command}.jpg"
-                    cv2.imwrite(filename, img) # 
+                    cv2.imwrite(filename, img) # 수업자료 실습 5-1 
                     print(f"*** 결정적 순간 캡처: {filename} ***")
                     last_command = current_command
 
             # 7. 드론 제어 실행
-            tello.execute_command(current_command) # [1, 1]
+            tello.execute_command(current_command) # 
 
             # 8. 화면에 현재 상태 표시
             cv2.putText(display_img, f"Battery: {tello.get_battery()}%", (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv2.putText(display_img, f"COMMAND: {current_command}", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-            cv2.imshow("Tello VLM-VPS Fusion (Press 'q' to land)", display_img) # 
+            cv2.imshow("Tello VLM-VPS Fusion (Press 'q' to land)", display_img) # 수업자료 실습 5-2 
 
-            if cv2.waitKey(1) & 0xFF == ord('q'): # 
+            if cv2.waitKey(1) & 0xFF == ord('q'): # 수업자료 실습 5-2 
                 print("'q' 입력 감지. 착륙합니다.")
                 break
 
@@ -86,10 +86,10 @@ def main():
     
     finally:
         print("--- 비행 종료 ---")
-        tello.land() # [1, 1]
-        tello.streamoff() # 
+        tello.land() # 수업자료 실습 5-2 
+        tello.streamoff() # 수업자료 실습 5-2 
         tello.end()
-        cv2.destroyAllWindows() # 
+        cv2.destroyAllWindows() # 수업자료 실습 5-2 
 
 if __name__ == "__main__":
     main()

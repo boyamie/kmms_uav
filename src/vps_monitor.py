@@ -4,10 +4,10 @@ def get_vps_state_text(tello_instance):
     Tello 매뉴얼에 따르면 VPS는 0.3m ~ 10m 범위에서 작동합니다. 
     """
     try:
-        # Tello의 하방 거리 측정 센서(Time-of-Flight) 값(cm) [1, 1]
+        # Tello의 하방 거리 측정 센서(Time-of-Flight) 값(cm) 
         tof_distance_cm = tello_instance.get_distance_tof()
         
-        # 기압계 기반 고도 값(cm) [1, 1]
+        # 기압계 기반 고도 값(cm) 
         height_cm = tello_instance.get_height()
         
         # Tello 매뉴얼(p.7)에 따르면 VPS는 30cm 이상에서 유효합니다. 
