@@ -4,10 +4,10 @@ def get_vps_state_text(tello_instance):
     Tello 매뉴얼에 따르면 VPS는 0.3m ~ 10m 범위에서 작동합니다. 
     """
     try:
-        # Tello의 하방 거리 측정 센서(Time-of-Flight) 값(cm) 
+        # Tello의 하방 거리 측정 센서(Time-of-Flight) 값(cm)
         tof_distance_cm = tello_instance.get_distance_tof()
         
-        # 기압계 기반 고도 값(cm) 
+        # 기압계 기반 고도 값(cm)
         height_cm = tello_instance.get_height()
         
         # Tello 매뉴얼(p.7)에 따르면 VPS는 30cm 이상에서 유효합니다. 
@@ -20,5 +20,5 @@ def get_vps_state_text(tello_instance):
     except Exception as e:
         print(f"[오류] VPS 센서 읽기 실패: {e}")
         # 'int' object is not subscriptable 오류는
-        #.py 코드 파일에  같은 텍스트 태그가 남아있을 때 발생합니다.
+        # .py 코드 파일에 같은 텍스트 태그가 남아있을 때 발생합니다.
         return "VPS SENSOR READ FAILED"
