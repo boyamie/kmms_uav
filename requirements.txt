@@ -4,5 +4,3 @@ openai
 numpy
 pillow
 python-dotenv
-
-#
