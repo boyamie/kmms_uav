@@ -1,3 +1,4 @@
+# run_mission.py
 import cv2
 import time
 import os
@@ -32,7 +33,7 @@ def main():
         last_command = "STOP"
 
         while True:
-            # 1. Tello 프레임 읽기 
+            # 1. Tello 프레임 읽기 (수업자료 실습 5-2) 
             img = frame_read.frame
             if img is None:
                 continue
@@ -69,13 +70,13 @@ def main():
                     print(f"*** 결정적 순간 캡처: {filename} ***")
                     last_command = current_command
 
-            # 7. 드론 제어 실행
-            tello.execute_command(current_command) # 
+            # 7. 드론 제어 실행 (수업자료 send_rc_control) 
+            tello.execute_command(current_command) [1]
 
-            # 8. 화면에 현재 상태 표시
+            # 8. 화면에 현재 상태 표시 (수업자료 실습 5-2) 
             cv2.putText(display_img, f"Battery: {tello.get_battery()}%", (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv2.putText(display_img, f"COMMAND: {current_command}", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-            cv2.imshow("Tello VLM-VPS Fusion (Press 'q' to land)", display_img) # 수업자료 실습 5-2 
+            cv2.imshow("Tello VLM-VPS Fusion (Press 'q' to land)", display_img) [1]
 
             if cv2.waitKey(1) & 0xFF == ord('q'): # 수업자료 실습 5-2 
                 print("'q' 입력 감지. 착륙합니다.")

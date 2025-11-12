@@ -14,7 +14,7 @@ def get_vlm_analysis_local(frame):
     인터넷 연결이 필요 없습니다.
     """
     try:
-        # 1. 이미지를 BGR에서 HSV 색상 공간으로 변환 
+        # 1. 이미지를 BGR에서 HSV 색상 공간으로 변환 (수업자료 참고) 
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         
         # 2. '파란색' 범위에 해당하는 마스크 생성
