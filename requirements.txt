@@ -1,1 +1,8 @@
-djitellopy opencv-python openai numpy pillow python-dotenv #.env 파일을 읽기 위해 추가
+djitellopy
+opencv-python
+openai
+numpy
+pillow
+python-dotenv
+
+#
