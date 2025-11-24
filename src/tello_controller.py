@@ -2,17 +2,12 @@ from djitellopy import Tello
 import time
 
 class TelloController:
-    """
-    Tello 드론의 연결, 제어, 상태 모니터링을 담당하는 메인 컨트롤러 클래스입니다.
-    djitellopy의 Tello 객체를 래핑(wrapping)하여 사용합니다.
-    """
     def __init__(self):
         self.drone = Tello()
         self.is_connected = False
         print("[INFO] TelloController 객체 생성 완료.")
 
     def connect(self):
-        """드론에 연결합니다."""
         try:
             self.drone.connect()
             print("[INFO] --- 드론 연결 성공 ---")
@@ -47,7 +42,6 @@ class TelloController:
                 print(f"[오류] 이륙 실패: {e}")
 
     def land(self):
-        """드론을 착륙시킵니다."""
         if self.is_connected and self.drone.is_flying:
             try:
                 print("[INFO] 착륙 (Landing)...")
@@ -56,7 +50,6 @@ class TelloController:
                 print(f"[오류] 착륙 실패: {e}")
 
     def streamon(self):
-        """카메라 비디오 스트림을 켭니다."""
         if self.is_connected:
             try:
                 self.drone.streamon()
@@ -65,7 +58,6 @@ class TelloController:
                 print(f"[오류] 스트림 켜기 실패: {e}")
 
     def streamoff(self):
-        """카메라 비디오 스트림을 끕니다."""
         if self.is_connected:
             try:
                 self.drone.streamoff()
@@ -74,48 +66,40 @@ class TelloController:
                 print(f"[오류] 스트림 끄기 실패: {e}")
             
     def get_frame_read(self):
-        """비디오 프레임 리더 객체를 반환합니다."""
         if self.is_connected:
             return self.drone.get_frame_read()
         return None
         
     def end(self):
-        """모든 연결을 종료합니다."""
         if self.is_connected:
             print("[INFO] 드론 연결 종료.")
             self.drone.end()
 
     def execute_command(self, command: str):
-        """
-        LLM이 생성한 'FORWARD', 'STOP' 등의 상위 레벨 명령어를
-        Tello의 send_rc_control 명령어로 변환하여 실행합니다.
-        """
         if not self.is_connected or not self.drone.is_flying:
             return
             
         try:
             if command == "FORWARD":
-                # (left_right, forward_backward, up_down, yaw)
-                # 20% 속도로 전진
+
                 self.drone.send_rc_control(0, 20, 0, 0)
             elif command == "STOP":
-                # 모든 속도를 0으로 하여 정지 (호버링)
+
                 self.drone.send_rc_control(0, 0, 0, 0)
             elif command == "BACKWARD":
-                # 20% 속도로 후진
+
                 self.drone.send_rc_control(0, -20, 0, 0)
             elif command == "LAND":
                 self.land()
-            # Image 2(사무실)  환경을 위한 'ASCEND' 명령
+
             elif command == "ASCEND":
                 self.drone.send_rc_control(0, 0, 20, 0) # 20% 속도로 상승
                 
         except Exception as e:
             print(f"[오류] RC 제어 명령({command}) 실패: {e}")
-            self.land() # 제어 실패 시 안전을 위해 즉시 착륙
+            self.land()
 
     def get_battery(self):
-        """배터리 잔량을 반환합니다."""
         if self.is_connected:
             return self.drone.get_battery()
         return 0

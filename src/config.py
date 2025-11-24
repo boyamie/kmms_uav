@@ -1,11 +1,9 @@
 import os
 from dotenv import load_dotenv
 
-#.env 파일에서 환경 변수(API 키) 로드
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-# 포스터 Methods 섹션의 핵심 로직 
 SYSTEM_PROMPT = """
 당신은 Tello 드론의 자율 비행을 제어하는 AI 두뇌(LLM)입니다.
 당신은 두 가지 텍스트 정보, [VLM 시각 분석] ($T_s$)과 ($T_v$)를 받습니다.
